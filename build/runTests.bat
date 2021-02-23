@@ -1,2 +1,2 @@
 SET PLATFORM=android
-mvn -Dtest=ArticleTests#testCompareArticleTitle test
+%MVN_PATH%\mvn -Dtest=ArticleTests#testCompareArticleTitle test
