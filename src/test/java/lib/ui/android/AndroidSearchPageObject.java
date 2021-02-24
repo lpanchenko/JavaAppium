@@ -7,7 +7,7 @@ public class AndroidSearchPageObject extends SearchPageObject {
     static
     {
         SEARCH_INIT_ELEMENT = "xpath://*[contains(@text, 'Search Wikipedia')]";
-        SEARCH_INPUT = "xpath://*[contains(@text, 'Search…')]";
+        SEARCH_INPUT = "id:org.wikipedia:id/search_src_text";
         SEARCH_INPUT_DEFAULT_TEXT = "id:org.wikipedia:id/search_src_text";
         SEARCH_RESULT_ARTICLE = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']";
         SEARCH_RESULT_ARTICLE_TITLE_AND_DESCRIPTION_TPL = "xpath://*[@text='{TITLE}']/following-sibling::*[@text='{DESCRIPTION}']";
