@@ -39,8 +39,6 @@ public class Platform {
 
     public AppiumDriver getDriver () throws Exception {
 
-        if (!this.isAndroid()) throw new Exception("Is not android");
-
         URL URL = new URL(APPIUM_URL);
         if (this.isAndroid()) {
             return new AppiumDriver(URL, this.getAndroidDesiredCapabilities());
