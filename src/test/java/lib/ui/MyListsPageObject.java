@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
@@ -20,7 +21,7 @@ public class MyListsPageObject extends MainPageObject {
         return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", name_of_title);
     }
 
-    public MyListsPageObject(AppiumDriver driver)
+    public MyListsPageObject(RemoteWebDriver driver)
     {
         super(driver);
     }
