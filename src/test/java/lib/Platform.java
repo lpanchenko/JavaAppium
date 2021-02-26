@@ -4,6 +4,8 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 ;
@@ -58,7 +60,7 @@ public class Platform {
             return new AppiumDriver(URL, this.getIOSDesiredCapabilities());
         }
         else if (this.isMW()){
-            return new ChromeDriver(this.getMWChromeOptions());
+            return new FirefoxDriver(this.getMWFirefoxOptions());
         }
         else{
             throw new Exception("Cannot detect type of the Driver. Platform value: " + this.getPlatformVar());
@@ -108,6 +110,14 @@ public class Platform {
         chromeOptions.addArguments("windows-size=340, 640");
 
         return chromeOptions;
+    }
+
+    private FirefoxOptions getMWFirefoxOptions()
+    {
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.addArguments("windows-size=340, 640");
+
+        return firefoxOptions;
     }
 
     private boolean isPlatform(String my_platform)
