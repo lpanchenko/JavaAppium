@@ -29,8 +29,7 @@ abstract public class NavigationUI extends MainPageObject{
         if (Platform.getInstance().isMW())
         {
             this.tryClickElementWithFewAttempts(MY_LISTS_LINK,
-                    "Cannot found navigation button to My list",
-                    5);
+                    "Cannot found navigation button to My list");
         }
         this.waitForElementAndClick(MY_LISTS_LINK,
                 "Cannot found navigation button to My list"

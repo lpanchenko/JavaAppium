@@ -107,7 +107,7 @@ public class MainPageObject {
         return getAmountOfElements(locator) > 0;
     }
 
-    public void tryClickElementWithFewAttempts(String locator, String error_message, int amount_of_attempts)
+    public void tryClickElementWithFewAttempts(String locator, String error_message)
     {
         int current_attempts = 0;
         boolean need_more_attempts = true;
@@ -118,7 +118,7 @@ public class MainPageObject {
                 this.waitForElementAndClick(locator, error_message, Duration.ofSeconds(1));
                 need_more_attempts = false;
             } catch (Exception e){
-                if (current_attempts > amount_of_attempts)
+                if (current_attempts > 5)
                 {
                     this.waitForElementAndClick(locator, error_message);
                     System.out.println("Try to Click on element with locator " + locator
