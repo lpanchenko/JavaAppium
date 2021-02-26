@@ -95,7 +95,7 @@ abstract public class SearchPageObject extends MainPageObject {
 
     public void waitForArticleWithDescription(String description)
     {
-        String search_result = getArticleWithDescription(description);
+        String search_result = getArticleWithDescriptionContainsText(description);
         this.waitForElementPresent(search_result,
                 "Cannot find search result with substring " + description,
                 Duration.ofSeconds(5));
@@ -111,14 +111,14 @@ abstract public class SearchPageObject extends MainPageObject {
 
     public void clickByArticleWithDescription(String substring)
     {
-        String search_result = getArticleWithDescription(substring);
+        String search_result = getArticleWithDescriptionContainsText(substring);
         this.waitForElementAndClick(search_result,
                 "Cannot find and click search result with substring" + substring);
     }
 
     public void clickByArticleWithTitle(String substring)
     {
-        String search_result = getArticleWithTitle(substring);
+        String search_result = getArticleWithTitleContainsText(substring);
         this.waitForElementAndClick(search_result,
                 "Cannot find and click search result with substring" + substring);
     }

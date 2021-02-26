@@ -1,5 +1,6 @@
 package lib.ui;
 
+import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
@@ -8,7 +9,8 @@ public class MyListsPageObject extends MainPageObject {
 
     protected static String
         FOLDER_BY_NAME_TPL,
-        ARTICLE_BY_TITLE_TPL;
+        ARTICLE_BY_TITLE_TPL,
+        REMOVE_FROM_SAVED_BUTTON;
 
     private static String getFolderByName(String name_of_folder)
     {
@@ -18,6 +20,11 @@ public class MyListsPageObject extends MainPageObject {
     private static String getSavedArticleByTitle(String name_of_title)
     {
         return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", name_of_title);
+    }
+
+    private static String getRemoveButtonByTitle(String name_of_title)
+    {
+        return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", name_of_title);
     }
 
     public MyListsPageObject(RemoteWebDriver driver)
@@ -39,11 +46,25 @@ public class MyListsPageObject extends MainPageObject {
         String article = getSavedArticleByTitle(article_title);
 
         this.waitForArticleToAppearByTitle(article_title);
-        this.swipeElementToLeft(
-                article,
-                "Cannot find saved article"
-        );
-        this.waitForArticleToDisappearByTitle(article_title);
+
+        if (Platform.getInstance().isAndroid()) {
+            this.swipeElementToLeft(
+                    article,
+                    "Cannot find saved article"
+            );
+            this.waitForArticleToDisappearByTitle(article_title);
+        } else if (Platform.getInstance().isMW()) {
+            String remove_locator = getRemoveButtonByTitle(article_title);
+            this.waitForElementAndClick(
+                    remove_locator,
+                    "Cannot click button to remove article from saved",
+                    Duration.ofSeconds(5)
+            );
+        }
+
+        if (Platform.getInstance().isMW()){
+            driver.navigate().refresh();
+        }
     }
 
     public void waitForArticleToDisappearByTitle(String article_title)

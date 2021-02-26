@@ -1,5 +1,6 @@
 package lib.ui;
 
+import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -12,6 +13,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         FOOTER_ELEMENT,
         OPTIONS_BUTTON,
         OPTIONS_ADD_TO_READING_LIST,
+        OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
         ADD_TO_MY_LIST_OVERLAY,
         READING_LIST_NAME_INPUT,
         READING_LIST_OK_BUTTON,
@@ -38,16 +40,26 @@ abstract public class ArticlePageObject extends MainPageObject{
     public String getArticleTitle()
     {
         WebElement title_element = waitForArticleTitle();
-        return title_element.getAttribute("text");
+        if (Platform.getInstance().isAndroid()) {
+            return title_element.getAttribute("text");
+        } else {
+            return title_element.getText();
+        }
     }
 
     public void swipeToFooter()
     {
-        this.swipeUpToFindElement(
-                FOOTER_ELEMENT,
-                "Cannot find the end of article",
-                20
-        );
+        if (Platform.getInstance().isAndroid()) {
+            this.swipeUpToFindElement(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40
+            );
+        } else {
+            this.scrollWebPageTillElementNotVisible(FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        }
     }
 
     public void addArticleToReadingList(String name_of_folder) throws InterruptedException {
@@ -102,15 +114,41 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public void addArticleToMySaved()
     {
+        if (Platform.getInstance().isMW())
+        {
+            this.removeArticleFromSavedIfItAdded();
+        }
         this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
                 "Cannot find option to add article to reading list",
                 Duration.ofSeconds(5));
     }
 
+    public void removeArticleFromSavedIfItAdded()
+    {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON))
+        {
+            this.waitForElementAndClick(
+                    OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Cannot click button to remove an article from saved",
+                    Duration.ofSeconds(5)
+            );
+            // Check method name is it add to reading list or ass to my list
+            this.waitForElementPresent(
+                    OPTIONS_ADD_TO_READING_LIST,
+                    "Cannot find button to add an article to saved list after removed it from this list before",
+                    Duration.ofSeconds(5)
+            );
+        }
+    }
+
     public void closeArticle()
     {
+        if (Platform.getInstance().isAndroid())
+        {
         this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON,
-                "Cannot close article, cannot find X link"
-        );
+                "Cannot close article, cannot find X link");
+        }
+        else
+            System.out.println("Method closeArticle() does nothing for platform " + Platform.getInstance().getPlatformVar());
     }
 }
