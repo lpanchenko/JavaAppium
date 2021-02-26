@@ -91,14 +91,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 search_line,
                 "Cannot find and type into search input",
                 Duration.ofSeconds(5));
-    }
 
-    public void waitForArticleWithDescription(String description)
-    {
-        String search_result = getArticleWithDescriptionContainsText(description);
-        this.waitForElementPresent(search_result,
-                "Cannot find search result with substring " + description,
-                Duration.ofSeconds(5));
     }
 
     public void waitForArticleContainsDescription(String substring)
