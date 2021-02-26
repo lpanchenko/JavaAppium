@@ -1,9 +1,11 @@
 package lib.ui;
 
+import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.Console;
 import java.time.Duration;
 import java.util.List;
 
@@ -58,12 +60,18 @@ abstract public class SearchPageObject extends MainPageObject {
 
     public void initSearchInput()
     {
-        this.waitForElementAndClick(SEARCH_INIT_ELEMENT,
-                "Cannot find and click search init element");
+        // This method work unstable with MW, temporary change steps
+        // At first code click to search text box and in case when search was not initialized click to search text box again
+        this.waitForElementPresent(SEARCH_INIT_ELEMENT, "", Duration.ofSeconds(5));
 
-        this.waitForElementPresent(SEARCH_INIT_ELEMENT,
-                "Cannot find search input after clicking on search init element",
-                Duration.ofSeconds(10));
+        WebElement inputTextBox = driver.findElement(getLocatorByString(SEARCH_INIT_ELEMENT));
+        inputTextBox.click();
+
+        if (driver.findElements(getLocatorByString(SEARCH_INPUT)).size() == 0)
+        {
+            inputTextBox = driver.findElement(getLocatorByString(SEARCH_INIT_ELEMENT));
+            inputTextBox.click();
+        }
     }
 
     public void waitForCancelButtonToAppear()
@@ -85,13 +93,12 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot find and click search cancel button");
     }
 
+    // This method works unstable with MW, temporary change wait with condition to find element method
     public void enterDataToSearchInput(String search_line)
     {
-        this.waitForElementAndSendKeys(SEARCH_INPUT,
-                search_line,
-                "Cannot find and type into search input",
-                Duration.ofSeconds(5));
-
+        this.waitForElementPresent(SEARCH_INPUT, "Cannot find and type into search input", Duration.ofSeconds(5));
+        WebElement w = driver.findElement(getLocatorByString(SEARCH_INPUT));
+        w.sendKeys(search_line);
     }
 
     public void waitForArticleContainsDescription(String substring)
