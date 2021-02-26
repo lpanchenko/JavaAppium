@@ -105,15 +105,15 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.enterDataToSearchInput(inputData);
 
         assertNotNull("",
-                SearchPageObject.getElementByTitleAndDescription("Java","Island of Indonesia")
+                SearchPageObject.getElementByTitleAndDescription("Java","island")
         );
 
         assertNotNull("",
-                SearchPageObject.getElementByTitleAndDescription("JavaScript","Programming language")
+                SearchPageObject.getElementByTitleAndDescription("JavaScript","rogramming language")
         );
 
         assertNotNull("",
-                SearchPageObject.getElementByTitleAndDescription("Java (programming language)","Object-oriented programming language")
+                SearchPageObject.getElementByTitleAndDescription("Java (programming language)","rogramming language")
         );
     }
 }

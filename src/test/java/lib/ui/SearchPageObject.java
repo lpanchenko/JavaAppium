@@ -182,7 +182,7 @@ abstract public class SearchPageObject extends MainPageObject {
 
         // Check if each element contains text
         for (WebElement w: list) {
-            if (!w.getAttribute("text").contains(text))
+            if (w.findElement(By.xpath("//*[contains(text(), Java)]")) == null)
                 return false;
         }
         return true;
