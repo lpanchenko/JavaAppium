@@ -22,6 +22,8 @@ abstract public class NavigationUI extends MainPageObject{
         }
         else
             System.out.println("Method openNavigation() does nothing for platform " + Platform.getInstance().getPlatformVar());
+
+        this.Sleep();
     }
 
     public void clickMyList()

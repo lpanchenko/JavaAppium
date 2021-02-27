@@ -27,6 +27,7 @@ public class MainPageObject {
 
     public MainPageObject(RemoteWebDriver driver)
     {
+        Sleep();
         this.driver = driver;
     }
 
@@ -284,4 +285,14 @@ public class MainPageObject {
             throw new IllegalArgumentException("Wrong type of locator. Locator: " + locator_with_type);
         }
     }
+
+    public void Sleep()
+    {
+        try {
+            Thread.sleep(2000);
+        }
+        catch (InterruptedException e)
+        {}
+    }
+
 }
