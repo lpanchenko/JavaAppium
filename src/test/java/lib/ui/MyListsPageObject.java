@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -10,7 +11,10 @@ public class MyListsPageObject extends MainPageObject {
     protected static String
         FOLDER_BY_NAME_TPL,
         ARTICLE_BY_TITLE_TPL,
-        REMOVE_FROM_SAVED_BUTTON;
+        REMOVE_FROM_SAVED_BUTTON,
+        UNWATCH_TPL,
+        WATCH_TPL;
+
 
     private static String getFolderByName(String name_of_folder)
     {
@@ -25,6 +29,16 @@ public class MyListsPageObject extends MainPageObject {
     private static String getRemoveButtonByTitle(String name_of_title)
     {
         return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", name_of_title);
+    }
+
+    private static String getUnwatchByTitle(String name_of_title)
+    {
+        return UNWATCH_TPL.replace("{TITLE}", name_of_title);
+    }
+
+    private static String getWatchByTitle(String name_of_title)
+    {
+        return WATCH_TPL.replace("{TITLE}", name_of_title);
     }
 
     public MyListsPageObject(RemoteWebDriver driver)
@@ -90,5 +104,19 @@ public class MyListsPageObject extends MainPageObject {
         this.waitForElementAndClick(article,
                 "Cannot find saved article by title " + title
         );
+    }
+
+    public void RemoveFromWatchList(String name)
+    {
+        if(driver instanceof AppiumDriver)
+            System.out.println("Method RemoveFromWatchList() does nothing for platform " + Platform.getInstance().getPlatformVar());
+
+        else {
+            String unwatched = getUnwatchByTitle(name);
+            this.waitForElementAndClick(unwatched, "Cannot find unwatch for article " + name);
+
+            String watched = getWatchByTitle(name);
+            this.waitForElementPresent(watched, "Cannot find watch for article " + name, Duration.ofSeconds(5));
+        }
     }
 }

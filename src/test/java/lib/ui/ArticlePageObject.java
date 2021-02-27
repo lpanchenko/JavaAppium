@@ -63,7 +63,7 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
 
     public void addArticleToReadingList(String name_of_folder) throws InterruptedException {
-        this.waitForElementAndClick(OPTIONS_BUTTON,
+        this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
                 "Cannot find button to open article options",
                 Duration.ofSeconds(10)
         );
@@ -95,21 +95,26 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public void addArticleToAlreadyExistedReadingList(String name_of_folder) throws InterruptedException
     {
-        this.waitForElementAndClick(OPTIONS_BUTTON,
-                "Cannot find button to open article options"
-        );
+        if (Platform.getInstance().isAndroid()) {
+            this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
+                    "Cannot find button to open article options"
+            );
 
         Thread.sleep(2000);
 
-        this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
-                "Cannot find option to add article to reading list"
-        );
+            this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
+                    "Cannot find option to add article to reading list"
+            );
 
-        this.waitForElementAndClick(getReadingList(name_of_folder),
-                "Cannot found folder " + name_of_folder + " in reading lists"
-        );
+            this.waitForElementAndClick(getReadingList(name_of_folder),
+                    "Cannot found folder " + name_of_folder + " in reading lists"
+            );
 
-        Thread.sleep(2000);
+            Thread.sleep(2000);
+        }
+        else {
+           addArticleToMySaved();
+        }
     }
 
     public void addArticleToMySaved()
@@ -118,9 +123,10 @@ abstract public class ArticlePageObject extends MainPageObject{
         {
             this.removeArticleFromSavedIfItAdded();
         }
-        this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
-                "Cannot find option to add article to reading list",
-                Duration.ofSeconds(5));
+        this.waitForElementPresent(OPTIONS_ADD_TO_READING_LIST);
+
+        WebElement button = driver.findElement(getLocatorByString(OPTIONS_ADD_TO_READING_LIST));
+        button.click();
     }
 
     public void removeArticleFromSavedIfItAdded()

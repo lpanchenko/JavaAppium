@@ -4,6 +4,7 @@ import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
+import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class MyListsTests extends CoreTestCase
         }
         else if (Platform.getInstance().isMW())
         {
+            ArticlePageObject.addArticleToMySaved();
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
             Auth.clickAuthButton();
             Auth.enterLoginData(login, password);
@@ -51,13 +53,18 @@ public class MyListsTests extends CoreTestCase
         NavigationUI.openNavigation();
         NavigationUI.clickMyList();
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
 
-        if (Platform.getInstance().isAndroid()){
+        if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.openReadingListByName(name_of_folder);
+            MyListsPageObject.swipeByArticleToDelete(article_title);
         }
-
-        MyListsPageObject.swipeByArticleToDelete(article_title);
+        else  if (Platform.getInstance().isMW())
+        {
+            MyListsPageObject.RemoveFromWatchList(article_title);
+            MyListsPageObject.Refresh();
+            MyListsPageObject.waitForArticleToDisappearByTitle(article_title);
+        }
     }
 
     @Test
@@ -75,8 +82,21 @@ public class MyListsTests extends CoreTestCase
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForArticleTitle();
-        ArticlePageObject.addArticleToReadingList(name_of_folder);
-        ArticlePageObject.closeArticle();
+
+        if (Platform.getInstance().isAndroid())
+        {
+            ArticlePageObject.addArticleToReadingList(name_of_folder);
+            ArticlePageObject.closeArticle();
+        }
+        else if (Platform.getInstance().isMW())
+        {
+            ArticlePageObject.addArticleToMySaved();
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+            ArticlePageObject.addArticleToMySaved();
+        }
 
         SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
@@ -89,18 +109,26 @@ public class MyListsTests extends CoreTestCase
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickMyList();
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
-        MyListsPageObject.openReadingListByName(name_of_folder);
-        MyListsPageObject.swipeByArticleToDelete(firstArticle);
-        MyListsPageObject.waitForArticleToDisappearByTitle(firstArticle);
-        MyListsPageObject.openArticle(secondArticle);
+        MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
+        if (Platform.getInstance().isAndroid()) {
+            MyListsPageObject.openReadingListByName(name_of_folder);
+            MyListsPageObject.swipeByArticleToDelete(firstArticle);
+            MyListsPageObject.waitForArticleToDisappearByTitle(firstArticle);
+            MyListsPageObject.openArticle(secondArticle);
 
-        ArticlePageObject = ArticlePageObjectFactory.get(driver);
-        assertEquals( "We see unexpected title",
-                secondArticle,
-                ArticlePageObject.getArticleTitle()
-        );
+            ArticlePageObject = ArticlePageObjectFactory.get(driver);
+            assertEquals("We see unexpected title",
+                    secondArticle,
+                    ArticlePageObject.getArticleTitle()
+            );
+        } else  if (Platform.getInstance().isMW())
+        {
+            MyListsPageObject.RemoveFromWatchList(firstArticle);
+            MyListsPageObject.Refresh();
+            MyListsPageObject.waitForArticleToAppearByTitle(secondArticle);
+        }
     }
 }
