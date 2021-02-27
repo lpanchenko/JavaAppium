@@ -7,6 +7,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase
@@ -41,7 +42,7 @@ public class MyListsTests extends CoreTestCase
             Auth.submitForm();
 
             ArticlePageObject.waitForArticleTitle();
-            assertEquals("We are not on the same page after login",
+            Assert.assertEquals("We are not on the same page after login",
                     article_title,
                     ArticlePageObject.getArticleTitle());
             ArticlePageObject.addArticleToMySaved();
@@ -120,7 +121,7 @@ public class MyListsTests extends CoreTestCase
             MyListsPageObject.openArticle(secondArticle);
 
             ArticlePageObject = ArticlePageObjectFactory.get(driver);
-            assertEquals("We see unexpected title",
+            Assert.assertEquals("We see unexpected title",
                     secondArticle,
                     ArticlePageObject.getArticleTitle()
             );

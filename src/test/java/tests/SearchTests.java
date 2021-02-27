@@ -3,6 +3,7 @@ package tests;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class SearchTests extends CoreTestCase
@@ -38,7 +39,7 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.enterDataToSearchInput(search_line);
         int amount_of_search_results = SearchPageObject.getAmountOfArticles();
 
-        assertTrue(
+        Assert.assertTrue(
                 "We found a few results instead of one",
                 amount_of_search_results > 0
         );
@@ -72,7 +73,7 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.enterDataToSearchInput(inputData);
 
         int amount_of_search_results = SearchPageObject.getAmountOfArticles();
-        assertTrue(
+        Assert.assertTrue(
                 "No data found by input value " + inputData,
                 amount_of_search_results > 0
         );
@@ -90,7 +91,7 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.initSearchInput();
         SearchPageObject.enterDataToSearchInput(inputData);
 
-        assertTrue(
+        Assert.assertTrue(
                 "No data found by input value " + inputData,
                 SearchPageObject.eachElementContainsText(inputData)
         );
@@ -104,15 +105,15 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.initSearchInput();
         SearchPageObject.enterDataToSearchInput(inputData);
 
-        assertNotNull("",
+        Assert.assertNotNull("",
                 SearchPageObject.getElementByTitleAndDescription("Java","island")
         );
 
-        assertNotNull("",
+        Assert.assertNotNull("",
                 SearchPageObject.getElementByTitleAndDescription("JavaScript","rogramming language")
         );
 
-        assertNotNull("",
+        Assert.assertNotNull("",
                 SearchPageObject.getElementByTitleAndDescription("Java (programming language)","rogramming language")
         );
     }
