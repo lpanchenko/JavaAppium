@@ -295,4 +295,7 @@ public class MainPageObject {
         {}
     }
 
+    public void Refresh() {
+        driver.navigate().refresh();
+    }
 }
