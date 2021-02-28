@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.FileOutputStream;
 import java.time.Duration;
+import java.util.Properties;
 
 public class CoreTestCase {
 
@@ -18,6 +20,7 @@ public class CoreTestCase {
     public void setUp() throws Exception
     {
         driver = Platform.getInstance().getDriver();
+        this.createAllurePropertyFile();
         this.rotateScreenPortrait();
         this.openWikiWebPageForMobileWeb();
     }
@@ -67,5 +70,21 @@ public class CoreTestCase {
             driver.runAppInBackground(Duration.ofSeconds(seconds));
         }else
             System.out.println("Method backgroundApp() does nothing for platform " + Platform.getInstance().getPlatformVar());
+    }
+
+    private void createAllurePropertyFile()
+    {
+        String path = System.getProperty("allure.results.directory");
+        try{
+            Properties props = new Properties();
+            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
+            props.setProperty("Environment", Platform.getInstance().getPlatformVar());
+            props.store(fos, "See https://github.com/allure-framework/allure-app/wiki/Environment");
+            fos.close();
+        } catch(Exception e)
+        {
+            System.err.println("IO problem when writing allure properties file");
+            e.printStackTrace();
+        }
     }
 }
