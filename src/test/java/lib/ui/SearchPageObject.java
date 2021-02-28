@@ -82,7 +82,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot find and click search cancel button");
     }
 
-    @Step("Enter data to the search input")
+    @Step("Enter '{search_line}' to the search input")
     // This method works unstable with MW, temporary change wait with condition to find element method
     public void enterDataToSearchInput(String search_line)
     {

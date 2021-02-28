@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -30,11 +31,13 @@ abstract public class ArticlePageObject extends MainPageObject{
         return READING_LIST_TPL.replace("{SUBSTRING}", substring);
     }
 
+    @Step("Wait for article title")
     public WebElement waitForArticleTitle()
     {
         return this.waitForElementPresent(TITLE);
     }
 
+    @Step("Get article title")
     public String getArticleTitle()
     {
         WebElement title_element = waitForArticleTitle();
@@ -45,6 +48,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Swipe to footer")
     public void swipeToFooter()
     {
         if (Platform.getInstance().isAndroid()) {
@@ -60,6 +64,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Add article to reading list")
     public void addArticleToReadingList(String name_of_folder) throws InterruptedException {
         this.waitForElementAndClick(OPTIONS_ADD_TO_READING_LIST,
                 "Cannot find button to open article options",
@@ -91,6 +96,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         );
     }
 
+    @Step("Add article to already existed reading list")
     public void addArticleToAlreadyExistedReadingList(String name_of_folder) throws InterruptedException
     {
         if (Platform.getInstance().isAndroid()) {
@@ -115,6 +121,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Add article to my saved")
     public void addArticleToMySaved()
     {
         if (Platform.getInstance().isMW())
@@ -127,6 +134,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         button.click();
     }
 
+    @Step("Remove article from my saved")
     public void removeArticleFromSavedIfItAdded()
     {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON))
@@ -145,6 +153,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Close article")
     public void closeArticle()
     {
         if (Platform.getInstance().isAndroid())
