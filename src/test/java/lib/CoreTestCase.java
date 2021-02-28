@@ -1,6 +1,7 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +15,7 @@ public class CoreTestCase {
     protected RemoteWebDriver driver;
 
     @Before
+    @Step("Run driver and session")
     public void setUp() throws Exception
     {
         driver = Platform.getInstance().getDriver();
@@ -22,11 +24,13 @@ public class CoreTestCase {
     }
 
     @After
+    @Step("Remove driver and session")
     public void tearDown() throws Exception
     {
         driver.quit();
     }
 
+    @Step("Rotate screen to portrait mode")
     protected void rotateScreenPortrait()
     {
         if (driver instanceof AppiumDriver) {
@@ -36,6 +40,7 @@ public class CoreTestCase {
             System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPlatformVar());
     }
 
+    @Step("Rotate screen to landscape mode")
     protected void rotateScreenLANDSCAPE()
     {
         if (driver instanceof AppiumDriver) {
@@ -45,6 +50,7 @@ public class CoreTestCase {
             System.out.println("Method rotateScreenLANDSCAPE() does nothing for platform " + Platform.getInstance().getPlatformVar());
     }
 
+    @Step("Open Wikipedia URL for Mobile Web (this method does nothing to Mobile Web)")
     protected void openWikiWebPageForMobileWeb()
     {
         if (Platform.getInstance().isMW()) {
@@ -54,6 +60,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Send mobile app to background (this method does nothing to Mobile Web)")
     protected void backgroundApp(int seconds)
     {
         if (driver instanceof AppiumDriver) {

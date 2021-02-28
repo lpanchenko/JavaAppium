@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -58,6 +59,7 @@ abstract public class SearchPageObject extends MainPageObject {
     }
     /* TEMPLATES METHODS */
 
+    @Step("Initializing the search field")
     public void initSearchInput()
     {
         // This method work unstable with MW, temporary change steps
@@ -74,6 +76,7 @@ abstract public class SearchPageObject extends MainPageObject {
         }
     }
 
+    @Step("Wait to cancel button to appear")
     public void waitForCancelButtonToAppear()
     {
         this.waitForElementPresent(SEARCH_CANCEL_BUTTON,
@@ -81,18 +84,21 @@ abstract public class SearchPageObject extends MainPageObject {
                 Duration.ofSeconds(5));
     }
 
+    @Step("Wait to cancel button to disappear")
     public void waitForCancelButtonToDisappear()
     {
         this.waitForElementNotPresent(SEARCH_CANCEL_BUTTON,
                 Duration.ofSeconds(5));
     }
 
+    @Step("Click on the cancel button")
     public void clickCancelButton()
     {
         this.waitForElementAndClick(SEARCH_CANCEL_BUTTON,
                 "Cannot find and click search cancel button");
     }
 
+    @Step("Enter data to the search input")
     // This method works unstable with MW, temporary change wait with condition to find element method
     public void enterDataToSearchInput(String search_line)
     {
@@ -101,6 +107,7 @@ abstract public class SearchPageObject extends MainPageObject {
         w.sendKeys(search_line);
     }
 
+    @Step("Wait for the article contains description")
     public void waitForArticleContainsDescription(String substring)
     {
         String search_result = getArticleWithDescriptionContainsText(substring);
@@ -109,6 +116,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 Duration.ofSeconds(5));
     }
 
+    @Step("Click by article with description")
     public void clickByArticleWithDescription(String substring)
     {
         String search_result = getArticleWithDescriptionContainsText(substring);
@@ -116,6 +124,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot find and click search result with substring" + substring);
     }
 
+    @Step("Click by article with title")
     public void clickByArticleWithTitle(String substring)
     {
         String search_result = getArticleWithTitleContainsText(substring);
@@ -123,6 +132,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot find and click search result with substring" + substring);
     }
 
+    @Step("Get amount of articles")
     public int getAmountOfArticles()
     {
         this.waitForElementPresent(SEARCH_RESULT_ARTICLE,
@@ -133,6 +143,7 @@ abstract public class SearchPageObject extends MainPageObject {
         return this.getAmountOfElements(SEARCH_RESULT_ARTICLE);
     }
 
+    @Step("Get amount of elements")
     public int getAmountOfElements(String locator)
     {
         By by = getLocatorByString(locator);
@@ -141,6 +152,7 @@ abstract public class SearchPageObject extends MainPageObject {
         return elements.size();
     }
 
+    @Step("Wait for empty results label")
     public void waitForEmptyResultsLabel()
     {
         this.waitForElementPresent(SEARCH_RESULT_NO_RESULTS_FOUND,
@@ -149,6 +161,7 @@ abstract public class SearchPageObject extends MainPageObject {
         );
     }
 
+    @Step("Wait for empty results label")
     public void waitForResultIsEmpty()
     {
         waitForElementPresent(SEARCH_RESULT_EMPTY_CONTAINER,
@@ -156,6 +169,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 Duration.ofSeconds(15));
     }
 
+    @Step("Assert there is no results of search")
     public void assertThereIsNoResultOfSearch()
     {
         this.assertElementNotPresent(SEARCH_RESULT_ARTICLE,
