@@ -20,9 +20,6 @@ import java.util.regex.Pattern;
 
 public class MainPageObject {
 
-    protected static String
-            ELEMENT_CONTAINS_TEXT_TPL = "xpath://*[contains(@text, '{TEXT}')]";
-
     protected RemoteWebDriver driver;
 
     public MainPageObject(RemoteWebDriver driver)
@@ -30,13 +27,6 @@ public class MainPageObject {
         Sleep();
         this.driver = driver;
     }
-
-    /* TEMPLATES METHODS */
-    protected static String getElementContainsText(String text)
-    {
-        return ELEMENT_CONTAINS_TEXT_TPL.replace("{TEXT}", text);
-    }
-    /* TEMPLATES METHODS */
 
     public WebElement waitForElementPresent(String locator, String error_msg, Duration seconds)
     {
@@ -208,20 +198,6 @@ public class MainPageObject {
         }
     }
 
-    public void swipeUpTillElementAppear(String locator, String error_message, int max_swipes)
-    {
-        int already_swiped = 0;
-
-        while (!this.isElementLocatedOnTheScreen(locator)){
-            if (already_swiped > max_swipes)
-            {
-                Assert.assertTrue(error_message, this.isElementLocatedOnTheScreen(locator));
-            }
-            swipeUpQuick();
-            ++already_swiped;
-        }
-    }
-
     public boolean isElementLocatedOnTheScreen(String locator)
     {
         int element_location_by_y = this.waitForElementPresent(locator,
@@ -291,7 +267,7 @@ public class MainPageObject {
         try {
             Thread.sleep(2000);
         }
-        catch (InterruptedException e)
+        catch (InterruptedException ignored)
         {}
     }
 

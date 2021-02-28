@@ -25,12 +25,10 @@ abstract public class ArticlePageObject extends MainPageObject{
         super(driver);
     }
 
-    /* TEMPLATES METHODS */
     private static String getReadingList(String substring)
     {
         return READING_LIST_TPL.replace("{SUBSTRING}", substring);
     }
-    /* TEMPLATES METHODS */
 
     public WebElement waitForArticleTitle()
     {

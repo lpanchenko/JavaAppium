@@ -1,14 +1,12 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -97,12 +95,12 @@ public class Platform {
 
     private ChromeOptions getMWChromeOptions()
     {
-        Map<String, Object> deviceMetrics = new HashMap<String, Object>();
+        Map<String, Object> deviceMetrics = new HashMap<>();
         deviceMetrics.put("Width", 360);
         deviceMetrics.put("Height", 640);
         deviceMetrics.put("pixelRatio", 3.0);
 
-        Map<String, Object> mobileEmulation = new HashMap<String, Object>();
+        Map<String, Object> mobileEmulation = new HashMap<>();
         mobileEmulation.put("deviceMetrics", deviceMetrics);
         mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
 

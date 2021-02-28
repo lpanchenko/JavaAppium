@@ -2,7 +2,6 @@ package lib;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.ScreenOrientation;
@@ -25,7 +24,7 @@ public class CoreTestCase {
 
     @After
     @Step("Remove driver and session")
-    public void tearDown() throws Exception
+    public void tearDown()
     {
         driver.quit();
     }

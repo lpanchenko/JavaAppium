@@ -64,7 +64,6 @@ public class ArticleTests extends CoreTestCase
         SearchPageObject.clickByArticleWithTitle(article);
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
-        Assert.assertTrue("Article should not be null",
-                ArticlePageObject.waitForArticleTitle() != null);
+        Assert.assertNotNull("Article should not be null", ArticlePageObject.waitForArticleTitle());
     }
 }

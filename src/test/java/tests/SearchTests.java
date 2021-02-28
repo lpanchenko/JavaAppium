@@ -98,7 +98,7 @@ public class SearchTests extends CoreTestCase
     }
 
     @Test
-    public void testCompareArticlesTitleAndDescription() throws InterruptedException {
+    public void testCompareArticlesTitleAndDescription() {
         String inputData = "Java";
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);

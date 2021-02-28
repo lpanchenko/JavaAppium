@@ -1,12 +1,10 @@
 package lib.ui;
 
 import io.qameta.allure.Step;
-import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.Console;
 import java.time.Duration;
 import java.util.List;
 
@@ -18,9 +16,7 @@ abstract public class SearchPageObject extends MainPageObject {
          SEARCH_INPUT_DEFAULT_TEXT,
          SEARCH_RESULT_ARTICLE,
          SEARCH_RESULT_ARTICLE_TITLE_AND_DESCRIPTION_TPL,
-         SEARCH_RESULT_ARTICLE_DESCRIPTION_TPL,
          SEARCH_RESULT_ARTICLE_DESCRIPTION_CONTAINS_TPL,
-         SEARCH_RESULT_ARTICLE_TITLE_TPL,
          SEARCH_RESULT_ARTICLE_TITLE_CONTAINS_TPL,
          SEARCH_RESULT_NO_RESULTS_FOUND,
          SEARCH_RESULT_EMPTY_CONTAINER,
@@ -31,16 +27,10 @@ abstract public class SearchPageObject extends MainPageObject {
         super(driver);
     }
 
-    /* TEMPLATES METHODS */
     private static String getArticleWithTitleAndDescription(String title, String description)
     {
         return SEARCH_RESULT_ARTICLE_TITLE_AND_DESCRIPTION_TPL.replace("{TITLE}", title)
                 .replace("{DESCRIPTION}", description);
-    }
-
-    private static String getArticleWithTitle(String substring)
-    {
-        return SEARCH_RESULT_ARTICLE_TITLE_TPL.replace("{SUBSTRING}", substring);
     }
 
     private static String getArticleWithTitleContainsText(String substring)
@@ -48,16 +38,10 @@ abstract public class SearchPageObject extends MainPageObject {
         return SEARCH_RESULT_ARTICLE_TITLE_CONTAINS_TPL.replace("{SUBSTRING}", substring);
     }
 
-    private static String getArticleWithDescription(String substring)
-    {
-        return SEARCH_RESULT_ARTICLE_DESCRIPTION_TPL.replace("{SUBSTRING}", substring);
-    }
-
     private static String getArticleWithDescriptionContainsText(String substring)
     {
         return SEARCH_RESULT_ARTICLE_DESCRIPTION_CONTAINS_TPL.replace("{SUBSTRING}", substring);
     }
-    /* TEMPLATES METHODS */
 
     @Step("Initializing the search field")
     public void initSearchInput()
@@ -185,7 +169,7 @@ abstract public class SearchPageObject extends MainPageObject {
         );
     }
 
-    public boolean eachElementContainsText(String text) throws InterruptedException
+    public boolean eachElementContainsText(String text)
     {
         String search_result = getArticleWithTitleContainsText(text);
         waitForElementPresent(search_result);
