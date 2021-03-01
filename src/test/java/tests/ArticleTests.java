@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
@@ -16,6 +14,7 @@ import org.junit.Test;
 public class ArticleTests extends CoreTestCase
 {
     @Test
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
     @DisplayName("Compare article title with expected one")
     @Description("We open 'Java object-oriented programming language article and make sure the title is as expected'")
     @Step("Starting test test testCompareArticleTitle")
