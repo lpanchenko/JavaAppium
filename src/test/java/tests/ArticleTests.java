@@ -56,6 +56,11 @@ public class ArticleTests extends CoreTestCase
     }
 
     @Test
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Check title existence")
+    @Description("Open article 'Turkish Angora' and check that the article has a title")
+    @Step("Starting testCheckArticleTitleExistence")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testCheckArticleTitleExistence()
     {
         String article = "Turkish Angora";

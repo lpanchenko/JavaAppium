@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
@@ -8,6 +10,11 @@ import org.junit.Test;
 
 public class SearchTests extends CoreTestCase
 {
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Search for an Article")
+    @Description("Enter article name to a search field, check that article with description was found")
+    @Step("Starting testSearch")
+    @Severity(value = SeverityLevel.CRITICAL)
     @Test
     public void testSearch()
     {
@@ -18,6 +25,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.waitForArticleContainsDescription("Object-oriented programming language");
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Cancel search")
+    @Description("Init search, press cancel button and check that it disappeared")
+    @Step("Starting testCancelSearch")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testCancelSearch()
     {
@@ -29,6 +41,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.waitForCancelButtonToDisappear();
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Search by valid input")
+    @Description("Init search, check that search results are not empty")
+    @Step("Starting testAmountOfNotEmptySearch")
+    @Severity(value = SeverityLevel.CRITICAL)
     @Test
     public void testAmountOfNotEmptySearch()
     {
@@ -45,6 +62,11 @@ public class SearchTests extends CoreTestCase
         );
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Search by invalid input")
+    @Description("Init search, check that search results are empty")
+    @Step("Starting testAmountOfEmptySearch")
+    @Severity(value = SeverityLevel.CRITICAL)
     @Test
     public void testAmountOfEmptySearch()
     {
@@ -56,6 +78,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.assertThereIsNoResultOfSearch();
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Default value in search input")
+    @Description("Init search, a default value in search box corresponds expected")
+    @Step("Starting testCompareSearchInputText")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testCompareSearchInputText()
     {
@@ -64,6 +91,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.assertDefaultValueInSearchInput();
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("Cancel search")
+    @Description("Init search, cancel search and check that test results are empty")
+    @Step("Starting testCompareSearchResult")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testCompareSearchResult() {
         String inputData = "Java";
@@ -83,6 +115,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.waitForResultIsEmpty();
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("All test result has input value")
+    @Description("Init search, check that each test result has this value")
+    @Step("Starting testCheckResultsContainSearchData")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testCheckResultsContainSearchData() {
         String inputData = "Java";
@@ -97,6 +134,11 @@ public class SearchTests extends CoreTestCase
         );
     }
 
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
+    @DisplayName("All test result has correct article and description")
+    @Description("Init search, check that each result has correct article and description")
+    @Step("Starting testCompareArticlesTitleAndDescription")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testCompareArticlesTitleAndDescription() {
         String inputData = "Java";

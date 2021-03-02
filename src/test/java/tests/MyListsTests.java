@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -15,6 +17,12 @@ public class MyListsTests extends CoreTestCase
     private static final String
         login = "Liuba_test",
         password = "Liuba_test";
+
+    @Features(value = {@Feature(value="MyList"), @Feature(value="Article")})
+    @DisplayName("Add article to MyList")
+    @Description("Add article to MyList and check that list contains article title")
+    @Step("Starting testSaveFirstArticleToMyList")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testSaveFirstArticleToMyList() throws InterruptedException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -68,6 +76,11 @@ public class MyListsTests extends CoreTestCase
         }
     }
 
+    @Features(value = {@Feature(value="MyList"), @Feature(value="Article")})
+    @DisplayName("Remove article from MyList")
+    @Description("Remove article from MyList and check that list doesnt have it")
+    @Step("Starting testRemoveArticleFromSavedList")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test
     public void testRemoveArticleFromSavedList() throws Exception {
 
