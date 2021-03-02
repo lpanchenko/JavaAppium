@@ -17,7 +17,7 @@ public class ArticleTests extends CoreTestCase
     @Features(value = {@Feature(value="Search"), @Feature(value="Article")})
     @DisplayName("Compare article title with expected one")
     @Description("We open 'Java object-oriented programming language article and make sure the title is as expected'")
-    @Step("Starting test test testCompareArticleTitle")
+    @Step("Starting testCompareArticleTitle")
     @Severity(value = SeverityLevel.BLOCKER)
     public void testCompareArticleTitle()
     {
@@ -40,7 +40,7 @@ public class ArticleTests extends CoreTestCase
     @Test
     @DisplayName("Swipe article to the footer")
     @Description("We open an article and swipe it to the footer")
-    @Step("Starting test test testSwipeArticle")
+    @Step("Starting test testSwipeArticle")
     @Severity(value = SeverityLevel.MINOR)
     public void testSwipeArticle()
     {

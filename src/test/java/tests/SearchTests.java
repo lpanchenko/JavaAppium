@@ -84,7 +84,7 @@ public class SearchTests extends CoreTestCase
     }
 
     @Test
-    public void testCheckResultsContainSearchData() throws InterruptedException {
+    public void testCheckResultsContainSearchData() {
         String inputData = "Java";
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
